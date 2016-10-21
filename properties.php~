@@ -1,0 +1,16 @@
+<html>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<?php
+function feature_disp($feat_name, $no_feat) {
+?>
+	<div style="overflow: hidden; width: 100%;">
+		<p style="display: block; float: left; position: relative; top: 15; margin-right: 10px;"><?php echo $feat_name; ?></p>
+		<input style="width: 25%; margin-left: 10px;" type="number" name="no-feat" value="<?php echo $no_feat; ?>" />
+	</div>
+<?php
+}
+
+feature_disp("bed", 3);
+?>
+</html>

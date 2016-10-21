@@ -1,0 +1,267 @@
+<?php
+
+function menu() {
+?>
+
+<div class="nav-bar">
+	<div class="nav-bar-item float-right float-box"><a href="multiple_properties.php">Multiple Properties</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="features.php">Features</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="types.php">Types</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="clients.php">Clients</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="index.php">Properties</a></div>
+</div>
+
+<?php
+}
+
+function img_thumb_edit($img_ind, $img_path) {
+	$img_href = "tmp_imgs/" . $img_path;
+?>
+	<div class="img-item" id="<?php echo strtok($img_path, '.'); ?>">
+		<img src="<?php echo $img_href; ?>" alt="" height="100px" style="margin: auto;" /><br />
+		<div onClick="removeImgThumb(this.parentNode.id, '<?php echo "new_property.php?action=new" ?>', <?php echo $img_ind; ?>)"><a>Remove</a></div>
+	</div>
+<?php
+}
+
+function img_thumb_disp($img_id, $img_path, $prop_id) {
+	$img_href = "property_imgs/" . $img_path;
+?>
+	<div class="img-item" id="<?php echo strtok($img_path, '.'); ?>">
+		<img src="<?php echo $img_href; ?>" alt="" height="100px" style="margin: auto;" /><br />
+		<div onClick="removeImgThumb(this.parentNode.id, '<?php echo "property_details.php?prop=" . $prop_id; ?>', <?php echo $img_id; ?>)"><a>Remove</a></div>
+	</div>
+<?php
+}
+
+function feature_disp($feat_name, $no_feat) {
+?>
+	<div style="overflow: hidden; width: 100%; margin-bottom: 10px;">
+		<div style="display: block; width: 50%; margin: auto;">
+			<p style="display: inline-block; float: left; position: relative; top: 15px; margin-right: 10px;"><?php echo $feat_name; ?></p>
+			<input class="feat-input" type="number" name="<?php echo $feat_name; ?>" value="<?php echo $no_feat; ?>" />
+		</div>
+	</div>
+<?php
+}
+
+function display_prop_thumb($prop_id) {
+	// make pdo connection
+	// select statement where prop_id = $prop_id
+	// spit all property data out
+
+	$dbc = new PDO('oci:dbname=FIT2076', 's26244608', 'monash00');
+	$dbc->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
+	try {
+		// select property to display
+		$query = "select * from property where prop_id = :prop_id";
+		$stmt = $dbc->prepare($query);
+
+		$stmt->bindParam(":prop_id", $prop_id);
+		$stmt->execute();
+
+		$res = $stmt->fetch();
+
+		$prop_title = $res["prop_street"] . ", "
+					. $res["prop_suburb"] . ", "
+					. $res["prop_state"] . " "
+					. $res["prop_pc"];
+
+		$query = "select * from property_type where type_id = " . $res["prop_type"];
+
+		$stmt = $dbc->prepare($query);
+		$stmt->execute();
+
+		$type = $stmt->fetch();
+
+		$href = "property_details.php?prop=" . $prop_id . "&action=update";
+
+		$img_query = "select * from property_image where prop_id = " . $prop_id;
+		$img_stmt = $dbc->prepare($img_query);
+		$img_stmt->execute();
+
+		$img_thumb = $img_stmt->fetch();
+?>
+			<div class="prop-thumb">
+				<div class="float-box"><img class="prop-thumb-img" src="property_imgs/<?php echo $img_thumb["img_path"]; ?>" /></div>
+				<div class="float-box">
+					<a class="prop-thumb-title" href="<?php echo $href; ?>"><?php echo $prop_title; ?></a>
+					<p class="prop-thumb-type">Type: <?php echo $type["type_name"]; ?></p>
+					<p class="prop-thumb-desc"><?php echo strlen($res["prop_desc"]) > 75? substr($res["prop_desc"], 0, 75) . "..." : $res["prop_desc"]; ?></p>
+				</div>
+				<div class="float-box float-right">
+					<div class="prop-thumb-edit">
+					<a href="<?php echo $href; ?>">Edit</a>
+					</div>
+					<div class="prop-thumb-delete">
+					<a href="index.php?action=delete&prop=<?php echo $prop_id; ?>">Delete</a>
+					</div>
+				</div>
+			</div>
+<?php
+	}
+	catch (Exception $e) {
+		die($e->getMessage());
+	}
+}
+
+function free_feat_disp($feat_id, $feat_name) {
+?>
+	<div class="parent border-bottom" id="feat-<?php echo $feat_id; ?>" style="width: 400px;">
+		<div class="child-left"><?php echo $feat_name; ?></div>
+		<div class="child-right" onClick="removeFeature(this.parentNode.id, <?php echo $feat_id; ?>)"><a>Delete</a></div>
+	</div>
+<?php
+}
+
+function occd_feat_disp($feat_id, $feat_name) {
+?>
+	<div class="border-bottom" id="feat-<?php echo $feat_id; ?>" style="width: 400px;">
+	<?php echo $feat_name; ?>
+	</div>
+<?php
+}
+
+function free_type_disp($type_id, $type_name) {
+?>
+	<div class="parent border-bottom" id="type-<?php echo $type_id; ?>" style="width: 400px;">
+		<div class="child-left"><?php echo $type_name; ?></div>
+		<div class="child-right" onClick="removeType(this.parentNode.id, <?php echo $type_id; ?>)"><a>Delete</a></div>
+	</div>
+<?php
+}
+
+function occd_type_disp($type_id, $type_name) {
+?>
+	<div class="border-bottom" id="type-<?php echo $type_id; ?>" style="width: 400px;">
+	<?php echo $type_name; ?>
+	</div>
+<?php
+}
+
+function img_thumb_list($img_id, $img_path) {
+	$img_href = "property_imgs/" . $img_path;
+?>
+	<div class="img-item" id="<?php echo strtok($img_path, '.'); ?>">
+	<img src="<?php echo $img_href; ?>" alt="" height="200px" style="margin: auto;" /><br />
+	<div onClick="removeImgThumb(this.parentNode.id, '<?php echo "image_list.php?action=delete"; ?>', <?php echo $img_id; ?>)">
+<?php
+}
+
+function client_disp($client) {
+	$id = $client["client_id"];
+	$fname = $client["client_fname"];
+	$lname = $client["client_lname"];
+	$email = $client["client_email"];
+	$mobile = $client["client_mobile"];
+	$street = $client["client_street"];
+	$suburb = $client["client_suburb"];
+	$state = $client["client_state"];
+	$pc = $client["client_pc"];
+
+?>
+	<div id="<?php echo $id; ?>" class="border-bottom">
+	<form method="POST" action="clients.php?action=edit&edit=<?php echo $id;?>">
+		<div class="client-item parent" style="width:600px; display:inline-block;">
+			<div class="child-left">
+				<p><?php echo $fname . " " . $lname . "<br />"; ?></p>
+				<p><?php echo $email; ?></p>
+				<p><?php echo $mobile; ?></p>
+			</div>
+			<div class="child-right">
+				<p><?php echo $street . ", " . $suburb . "<br />"; ?></p>
+				<p><?php echo $state; ?></p>
+				<p><?php echo $pc; ?></p>
+			</div>
+		</div>
+
+		<div class="float-box float-right">
+			<div onClick="toggleEditClient('<?php echo $id; ?>')"><a>Edit</a></div>
+			<div onClick="confirmDelClient('<?php echo $id; ?>')"><a>Delete</a></div>
+		</div>
+
+		<div id="mailto-<?php echo $id; ?>" style="overflow: hidden;">
+			<a href="mailto.php?client=<?php echo $id; ?>" class="float-right">Send Email</a>
+		</div>
+
+		<div id="edit-<?php echo $id; ?>"class="parent full-width" style="display: none;">
+			<div class="child-left">
+				<div>
+					<label>First Name</label><br />
+					<input type="text" name="fname" value="<?php echo $fname; ?>" />
+				</div>
+				<div>
+					<label>Last Name</label><br />
+					<input type="text" name="lname" value="<?php echo $lname; ?>" />
+				</div>
+				<div>
+					<label>Email</label><br />
+					<input type="text" name="email" value="<?php echo $email; ?>" />
+				</div>
+				<div>
+					<label>Mobile Phone</label><br />
+					<input type="text" name="mobile" value="<?php echo $mobile; ?>" />
+				</div>
+			</div>
+			<div class="child-right">
+				<div>
+					<label>Street</label><br />
+					<input type="text" name="street" value="<?php echo $street; ?>" />
+				</div>
+				<div>
+					<label>Suburb</label><br />
+					<input type="text" name="suburb" value="<?php echo $suburb; ?>" />
+				</div>
+				<div>
+					<label>State</label><br />
+					<input type="text" name="state" value="<?php echo $state; ?>" />
+				</div>
+				<div>
+					<label>Postcode</label><br />
+					<input type="text" name="postcode" value="<?php echo $pc; ?>" />
+				</div>
+			</div>
+			<input class="full-width" type="submit" value="Submit" />
+		</div>
+	</form>
+	</div>
+<?php
+}
+
+function property_thumb_mult($property) {
+	$title = $property["prop_street"] . ", " . $property["prop_suburb"] . ", " . $property["prop_state"] . " " . $property["prop_pc"];
+	$href = "property_details.php?prop=" . $property["prop_id"] . "&action=update";
+?>
+	<div class="prop-thumb">
+		<div class="float-box" style="width: 500px;">
+			<a class="prop-thumb-title" href="<?php echo $href; ?>"><?php echo $title; ?></a>
+		</div>
+		<div class="float-right" style="width: 200px;">
+			<input type="number" name="<?php echo $property["prop_id"]; ?>" value="<?php echo $property["price"]; ?>" />
+		</div>
+	</div>
+<?php
+}
+
+function check_session() {
+	if (session_id() == '') {
+		session_start();
+		if (!isset($_SESSION["username"]) || $_SESSION["username"] == "")
+			header('Location: http://triton.infotech.monash.edu.au/FIT2076_26244608/ass2/login.php');
+		else {
+			echo "<center>";
+			echo "Welcome back, " . $_SESSION["username"] . " ";
+			echo '<a href="login.php">Log out</a>' . "<br />";
+			echo "</center><br />";
+		}
+	}
+}
+
+function debug_array($a) {
+	echo "<pre>";
+		print_r($a);
+	echo "</pre>";
+}
+
+?>

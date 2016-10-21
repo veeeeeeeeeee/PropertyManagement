@@ -1,0 +1,313 @@
+body {
+	font-family: helvetica;
+	background-color: #DDDDDD;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	display: inline-block;
+}
+
+a {
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: tahoma;
+	font-weight: bold;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+}
+
+a:link {
+	color: #333333;
+}
+
+a:visited {
+	color: #333333;
+}
+
+a:hover {
+	color: #000099;
+}
+
+.header, .content {
+	background-color: #FFFFFF;
+	margin: auto;
+	width: 800px;
+	padding: 20px;
+}
+
+.search {
+	margin-top: 20px;
+	margin-bottom: 50px;
+	width: 100%;
+}
+
+.search>form {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.search>form>div>div>div {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.child-left {
+	padding-right: 5px;
+	box-sizing: border-box;
+}
+
+.child-right {
+	padding-left: 5px;
+	box-sizing: border-box;
+}
+
+input[type=text], input[type=password], input[type=number]:not(.feat-input), select {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	display: inline-block;
+	border: 1px solid #CCCCCC;
+	border-radius: 2px;
+	box-sizing: border-box;
+}
+
+input[type=submit], input[type=button], button {
+	width: 100%;
+	height: 100%;
+	border: none;
+	border-radius: 3px;
+	margin-top: 20px;
+	padding: 15px 20px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover, input[type=button]:hover, button:hover {
+	background-color: #EEEEEE;
+}
+
+.parent {
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+}
+
+.child-left {
+	display: block;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.child-right {
+	display: block;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.prop-display {
+}
+
+.prop-modify {
+	margin-top: 50px;
+	width: 800px;
+}
+
+.prop-modify .parent>.child-left>div {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.prop-thumb {
+	background-color: #EFEFEF;
+	border-radius: 2px;
+	padding: 20px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	position: relative;
+}
+
+.prop-thumb>div {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.prop-thumb-img {
+	display: table-cell;
+	width: 150px;
+}
+
+.float-box {
+	display: inline-block;
+	/*border: 1px solid red;*/
+	vertical-align: top;
+	height: 100%;
+}
+
+.float-right {
+	float: right;
+}
+
+.float-left {
+	float: left;
+}
+
+.border-bottom {
+	margin-top: 20px;
+	box-sizing: border-box;
+	border-bottom: 0.5px solid grey;
+}
+
+.nav-bar-item {
+	text-align: center;
+	display: inline;
+	width: fit-content;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.nav-bar-item a {
+	text-align: center;
+}
+
+.prop-imgs {
+	border-radius: 2px;
+	border-bottom: 0.5px solid #CCCCCC;
+	box-shadow: 0px 5px 3px #CCCCCC;
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 20px;
+	width: 800px;
+	min-height: 300px;
+}
+
+.imgs {
+	float: left;
+	margin-top: 10px;
+	margin-right: 250px;
+}
+
+.img-picker {
+	vertical-align: top;
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100px;
+	width: 200px;
+	float: right;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-left: 0.5px solid #CCCCCC;
+}
+
+.input-file {
+	width: 0.1px;
+	height: 0.1px;
+	z-index: -1;
+	overflow: hidden;
+	opacity: 0;
+}
+
+.input-file + label {
+	width: 100%;
+	color: #EE0000;
+	border-radius: 3px;
+	text-align: center;
+	margin: auto;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 1.25em;
+	font-weight: 700;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.input-file + label:hover {
+	color: #AA0000;
+}
+
+.img-item {
+	float: left;
+	vertical-align: top;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.img-item>img {
+}
+
+.img-item>div {
+	width: 100px;
+	margin: auto;
+	text-align: center;
+	cursor: pointer;
+}
+
+.img-item>div>a {
+}
+
+.feat-input {
+	width: 25%;
+	margin-left: 10px;
+	padding: 10px;
+	display: inline-block;
+	float: right;
+	border: 1px solid #CCCCCC;
+	border-radius: 2px;
+	box-sizing: border-box;
+}
+
+.modal {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	padding-top: 200px;
+	z-index: 1;
+	display: none;
+}
+
+.modal-content {
+	margin: auto;
+	width: 30%;
+	padding: 20px;
+	box-sizing: border-box;
+	background-color: #FEFEFE;
+	border: 1px solid #CCCCCC;
+	text-align: center;
+}
+
+.login {
+	width: 400px;
+	margin: auto;
+}
+
+.display-code {
+	width: 300px;
+	background-color: blue;
+	color: white;
+}
+
+.display-code:hover {
+	background-color: #00AA00;
+}
+
+.display-code>a {
+	color: white;
+}

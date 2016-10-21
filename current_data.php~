@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		img {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div><img src="data_snap/type.png" alt="property types" /></div>
+	<div><img src="data_snap/feature.png" alt="features" /></div>
+	<div><img src="data_snap/property_feature.png" alt="property features" /></div>
+	<div><img src="data_snap/property.png" alt="property" /></div>
+	<div><img src="data_snap/client.png" alt="clients" /></div>
+	<div><img src="data_snap/property_image.png" alt="property images" /></div>
+</body>
+</html>

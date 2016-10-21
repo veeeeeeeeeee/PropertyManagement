@@ -1,0 +1,15 @@
+<?php
+
+function menu() {
+?>
+
+<div class="nav-bar">
+	<div class="nav-bar-item float-right float-box"><a href="features.php">Features</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="types.php">Types</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="clients.php">Clients</a></div>
+	<div class="nav-bar-item float-right float-box"><a href="properties.php">Properties</a></div>
+</div>
+
+<?php
+}
+?>
